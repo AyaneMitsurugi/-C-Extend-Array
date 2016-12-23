@@ -1,0 +1,81 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define N 10    //number of array's elements
+
+//ADDING ONE ELEMENT TO THE ARRAY
+
+int * add(int* array, int n, int new_elem)
+{
+
+    //ARRAY OF ONE MORE ELEMENT THAN BASIC ONE
+
+    int *p=malloc((n+1)*sizeof(int));
+
+    //ERROR CHECK
+
+    if(p==NULL)
+        return NULL;
+
+    //ADD new_elem ON THE LAST POSSITION OF ARRAY p
+
+    *(p+n)=new_elem;
+
+    //COPY array TO p
+
+    int i;
+    for(i=0; i<n; i++)
+    {
+        *(p+i)=*(array+i);
+    }
+
+    //FREE MEMORY OF array
+
+    free(array);
+
+    //RETURN ARRAY p WITH new_elem ADDED
+
+    return p;
+}
+
+//INT MAIN()
+
+int main()
+{
+    int *array=NULL;
+    int i;
+    int new_elem;
+
+
+    printf("     //***** EXTENDING ARRAY *****//\n\n");
+    printf("You can type %i times elements into the array\n", N);
+    printf("int new_elem;\n\n", N);
+
+    for(i=0; i<N; i++)
+    {
+        printf("aray[%i] = new_elem = ", i);
+        scanf("%i", &new_elem);
+
+        printf("array=add(array, %i, %i) != NULL ", i, new_elem);
+        array=add(array, i, new_elem);
+
+        if(array!=NULL)
+            printf("TRUE\n\n", i);
+    }
+
+    printf("     //***** SHOW ME THE RESULTS *****//\n\n");
+
+    for(i=0; i<N; i++)
+    {
+        printf("array[%i] = %i", i, *(array+i));
+        printf("\n");
+    }
+    printf("\nShowing the results DONE\n\n");
+
+
+    printf("free(array) ");
+    free(array);
+    printf("DONE\n\n");
+
+
+return 0;
+}
